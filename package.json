@@ -10,16 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@firebase/auth": "^1.9.0",
+    "@firebase/firestore": "^4.7.8",
+    "@hookform/resolvers": "^3.3.4",
+    "date-fns": "^3.3.1",
+    "firebase": "^11.3.1",
+    "framer-motion": "^11.0.8",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.3",
-    "framer-motion": "^11.0.8",
-    "zustand": "^4.5.2",
-    "zod": "^3.22.4",
-    "@hookform/resolvers": "^3.3.4",
     "react-hook-form": "^7.51.0",
-    "date-fns": "^3.3.1"
+    "react-router-dom": "^6.22.3",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
