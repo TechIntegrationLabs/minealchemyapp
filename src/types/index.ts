@@ -46,6 +46,7 @@ export interface JournalEntry {
   date: Date;
   tags: string[];
   type: 'text' | 'voice';
+  mood: string;
 }
 
 export interface StepWork {

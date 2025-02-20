@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tag, Mic, Save } from 'lucide-react';
+import { Tag, Mic, Save, Smile } from 'lucide-react';
 
 interface Props {
   onSave: (content: string, tags: string[]) => void;
@@ -9,10 +9,13 @@ export const JournalEditor: React.FC<Props> = ({ onSave }) => {
   const [content, setContent] = useState('');
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [mood, setMood] = useState('neutral');
 
   const handleAddTag = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && tagInput.trim()) {
-      setTags([...tags, tagInput.trim()]);
+      if (!tags.includes(tagInput.trim())) {
+        setTags([...tags, tagInput.trim()]);
+      }
       setTagInput('');
     }
   };
@@ -22,8 +25,11 @@ export const JournalEditor: React.FC<Props> = ({ onSave }) => {
       onSave(content, tags);
       setContent('');
       setTags([]);
+      setMood('neutral');
     }
   };
+
+  const moods = ['happy', 'neutral', 'sad', 'anxious', 'grateful', 'hopeful'];
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -41,6 +47,12 @@ export const JournalEditor: React.FC<Props> = ({ onSave }) => {
           >
             <Tag className="w-3 h-3 mr-1" />
             {tag}
+            <button
+              onClick={() => setTags(tags.filter(t => t !== tag))}
+              className="ml-1 hover:text-blue-600"
+            >
+              ×
+            </button>
           </span>
         ))}
         <input
@@ -52,12 +64,30 @@ export const JournalEditor: React.FC<Props> = ({ onSave }) => {
           onKeyDown={handleAddTag}
         />
       </div>
+      <div className="flex items-center mb-4">
+        <Smile className="w-4 h-4 mr-2 text-gray-500" />
+        <select
+          value={mood}
+          onChange={(e) => setMood(e.target.value)}
+          className="border rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        >
+          {moods.map((m) => (
+            <option key={m} value={m}>
+              {m.charAt(0).toUpperCase() + m.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="flex justify-between">
         <button className="btn-secondary">
           <Mic className="w-4 h-4 mr-2" />
           Record Voice
         </button>
-        <button className="btn" onClick={handleSave}>
+        <button 
+          className="btn"
+          onClick={handleSave}
+          disabled={!content.trim()}
+        >
           <Save className="w-4 h-4 mr-2" />
           Save Entry
         </button>

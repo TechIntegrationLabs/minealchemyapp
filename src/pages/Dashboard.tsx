@@ -8,7 +8,7 @@ import { HealthBars } from '../components/HealthBars';
 import type { HealthMetric } from '../types';
 
 export const Dashboard: React.FC = () => {
-  const { activities, setActivityModal } = useStore();
+  const { ui, setActivityModal } = useStore();
   const [selectedMetric, setSelectedMetric] = useState<keyof HealthMetric>('mental');
   
   return (
@@ -40,7 +40,7 @@ export const Dashboard: React.FC = () => {
         </DashboardCard>
       </div>
 
-      {activities.showAddActivity && (
+      {ui?.activities?.showAddActivity && (
         <AddActivityModal 
           metricType={selectedMetric}
           onClose={() => setActivityModal('showAddActivity', false)}
